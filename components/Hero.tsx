@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import Button from './Button';
 import VideoProfilePopup from './VideoProfilePopup';
+import { TENDER_COUNT, WHATSAPP_CONTACT } from '@/constants';
+import { buttonVariants } from './ui/button';
 
 const Hero = () => {
   return (
@@ -14,8 +15,8 @@ const Hero = () => {
           berlokasi di Kabupaten Bandung.
         </p>
         <p className="regular-16 mt-2 text-gray-30 xl:max-w-[520px]">
-          Produsen alat kesehatan yang berdiri pada 12 Januari 2000, dengan paten merk EJ-Medical,
-          berlokasi di Kabupaten Bandung.
+          Ewan Jaya Kastara adalah UKM berbentuk bandan usaha dengan legalitas produk seperti izin
+          edar, TKDN dsb. Seluruh perangkat produksi merupakan hasil pengembangan mandiri.
         </p>
 
         <div className="my-11 flex flex-wrap gap-5">
@@ -28,13 +29,21 @@ const Hero = () => {
           </div>
 
           <p className="bold-16 lg:bold-20 text-blue-70">
-            198k
-            <span className="regular-16 lg:regular-20 ml-1">Excellent Reviews</span>
+            {TENDER_COUNT}
+            <span className="regular-16 lg:regular-20 ml-1">
+              Tender berskala nasional telah selesai.
+            </span>
           </p>
         </div>
 
         <div className="flex flex-col w-full gap-3 sm:flex-row">
-          <Button type="button" title="Download App" variant="btn_green" />
+          {/* <Button type="button" title="Download App" variant="btn_green" onClick={() => {}} /> */}
+          <a
+            className={buttonVariants({ variant: 'green' })}
+            href={`https://wa.me/${WHATSAPP_CONTACT}`}
+          >
+            Kontak kami
+          </a>
           <VideoProfilePopup />
         </div>
       </div>
