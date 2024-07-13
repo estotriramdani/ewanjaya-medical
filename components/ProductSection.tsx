@@ -1,11 +1,11 @@
-import { sections } from '@/constants';
+import { SECTIONS } from '@/constants';
 import React from 'react';
 import ProductCard from './ProductCard';
 import { PRODUCTS } from '@/constants/products';
 
 const ProductSection = () => {
   return (
-    <section id={sections.product} className="">
+    <section id={SECTIONS.product} className="">
       <div className="padding-container max-container w-full pb-24">
         <h2 className="bold-40 lg:bold-64">Produk Kami</h2>
         <p className="regular-16 text-gray-30 mt-2">

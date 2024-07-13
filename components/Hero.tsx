@@ -1,11 +1,14 @@
 import Image from 'next/image';
 import VideoProfilePopup from './VideoProfilePopup';
-import { TENDER_COUNT, WHATSAPP_CONTACT } from '@/constants';
+import { SECTIONS, TENDER_COUNT, WHATSAPP_CONTACT } from '@/constants';
 import { buttonVariants } from './ui/button';
 
 const Hero = () => {
   return (
-    <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row">
+    <section
+      id={SECTIONS.hero}
+      className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row"
+    >
       <div className="hero-map" />
 
       <div className="relative z-20 flex flex-1 flex-col xl:w-1/2">
@@ -43,11 +46,17 @@ const Hero = () => {
         <div className="flex flex-col w-full gap-3 sm:flex-row">
           {/* <Button type="button" title="Download App" variant="btn_green" onClick={() => {}} /> */}
           <a
-            className={buttonVariants({ variant: 'green', className: 'flex items-center'})}
-            target='_blank'
+            className={buttonVariants({ variant: 'green', className: 'flex items-center' })}
+            target="_blank"
             href={`https://wa.me/${WHATSAPP_CONTACT}`}
           >
-            <Image src="/whatsapp.png" alt="whatsapp icon" width={22} height={22} className='mr-2' />
+            <Image
+              src="/whatsapp.png"
+              alt="whatsapp icon"
+              width={22}
+              height={22}
+              className="mr-2"
+            />
             Kontak kami
           </a>
           <VideoProfilePopup />

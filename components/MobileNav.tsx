@@ -3,19 +3,10 @@
 import { NAV_LINKS } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const MobileNav = () => {
   const [toggleNav, setToggleNav] = useState(false);
-  const navListRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (toggleNav) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [toggleNav]);
 
   return (
     <>
@@ -34,6 +25,10 @@ const MobileNav = () => {
                 href={link.href}
                 key={link.key}
                 className="flexCenter regular-16 py-4 hover:text-gray-500"
+                onClick={() => {
+                  setToggleNav(false);
+                }}
+                replace={link.href.startsWith('#') ? true : false}
               >
                 {link.label}
               </Link>

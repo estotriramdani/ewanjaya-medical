@@ -1,15 +1,18 @@
-export const sections = {
+export const SECTIONS = {
   hero: 'hero-section',
   location: 'location-section',
   product: 'product-section',
+  features: 'features-section',
+  contact: 'contact-section',
 };
 
 // NAVIGATION
 export const NAV_LINKS = [
-  { href: '/', key: sections.hero, label: 'Beranda' },
-  { href: '/', key: sections.location, label: 'Lokasi' },
-  { href: '/', key: 'contact-section', label: 'Kontak' },
-  { href: '/', key: sections.product, label: 'Produk ' },
+  { href: `/#${SECTIONS.hero}`, key: SECTIONS.hero, label: 'Beranda' },
+  { href: `/#${SECTIONS.product}`, key: SECTIONS.product, label: 'Produk ' },
+  { href: `/#${SECTIONS.location}`, key: SECTIONS.location, label: 'Lokasi' },
+  { href: `/#${SECTIONS.features}`, key: SECTIONS.features, label: 'Keunggulan' },
+  { href: `/#${SECTIONS.contact}`, key: SECTIONS.contact, label: 'Kontak' },
 ];
 
 // CAMP SECTION
