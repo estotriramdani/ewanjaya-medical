@@ -44,6 +44,7 @@ const Hero = () => {
           {/* <Button type="button" title="Download App" variant="btn_green" onClick={() => {}} /> */}
           <a
             className={buttonVariants({ variant: 'green', className: 'flex items-center'})}
+            target='_blank'
             href={`https://wa.me/${WHATSAPP_CONTACT}`}
           >
             <Image src="/whatsapp.png" alt="whatsapp icon" width={22} height={22} className='mr-2' />
