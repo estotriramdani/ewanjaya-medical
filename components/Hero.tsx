@@ -31,7 +31,7 @@ const Hero = () => {
           <div>
             <p className="regular-16 lg:regular-20 ml-1 ">
               <span className="bold-16 lg:bold-20 text-blue-70">{TENDER_COUNT}</span>
-              <span className=""> Tender berskala nasional telah selesai.</span>
+              <span className=""> Tender berskala nasional telah selesai dengan baik.</span>
             </p>
             <p className="regular-16 lg:regular-20 ml-1 ">
               <span className="bold-16 lg:bold-20 text-blue-70">100.000+</span> produk telah

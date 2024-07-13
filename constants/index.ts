@@ -1,23 +1,19 @@
 export const sections = {
   hero: 'hero-section',
   location: 'location-section',
-}
+  product: 'product-section',
+};
 
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: sections.hero, label: 'Beranda' },
   { href: '/', key: sections.location, label: 'Lokasi' },
   { href: '/', key: 'contact-section', label: 'Kontak' },
-  { href: '/', key: 'product ', label: 'Produk ' },
+  { href: '/', key: sections.product, label: 'Produk ' },
 ];
 
 // CAMP SECTION
-export const PEOPLE_URL = [
-  '/person-1.png',
-  '/person-2.png',
-  '/person-3.png',
-  '/person-4.png',
-];
+export const PEOPLE_URL = ['/person-1.png', '/person-2.png', '/person-3.png', '/person-4.png'];
 
 // FEATURES SECTION
 export const FEATURES = [
@@ -54,40 +50,24 @@ export const FEATURES = [
 // FOOTER SECTION
 export const FOOTER_LINKS = [
   {
-    title: 'Learn More',
-    links: [
-      'About Hilink',
-      'Press Releases',
-      'Environment',
-      'Jobs',
-      'Privacy Policy',
-      'Contact Us',
-    ],
-  },
-  {
-    title: 'Our Community',
-    links: ['Climbing xixixi', 'Hiking hilink', 'Hilink kinthill'],
+    title: 'Navigasi',
+    links: NAV_LINKS,
   },
 ];
 
 export const FOOTER_CONTACT_INFO = {
-  title: 'Contact Us',
+  title: 'Kontak',
   links: [
-    { label: 'Admin Officer', value: '123-456-7890' },
-    { label: 'Email Officer', value: 'hilink@akinthil.com' },
+    { label: 'Admin Officer', value: '0857-0332-9747' },
+    { label: 'Email Officer', value: 'ewanjayakastara@gmail.com' },
   ],
 };
 
 export const SOCIALS = {
   title: 'Social',
-  links: [
-    '/facebook.svg',
-    '/instagram.svg',
-    '/twitter.svg',
-    '/youtube.svg',
-    '/wordpress.svg',
-  ],
+  links: ['/facebook.svg', '/instagram.svg', '/twitter.svg', '/youtube.svg', '/wordpress.svg'],
 };
 
 export const TENDER_COUNT = 20;
+
 export const WHATSAPP_CONTACT = '6285703329747';
