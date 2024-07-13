@@ -43,9 +43,10 @@ const Hero = () => {
         <div className="flex flex-col w-full gap-3 sm:flex-row">
           {/* <Button type="button" title="Download App" variant="btn_green" onClick={() => {}} /> */}
           <a
-            className={buttonVariants({ variant: 'green' })}
+            className={buttonVariants({ variant: 'green', className: 'flex items-center'})}
             href={`https://wa.me/${WHATSAPP_CONTACT}`}
           >
+            <Image src="/whatsapp.png" alt="whatsapp icon" width={22} height={22} className='mr-2' />
             Kontak kami
           </a>
           <VideoProfilePopup />

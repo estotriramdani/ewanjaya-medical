@@ -25,7 +25,7 @@ const LocationSection = () => {
           </h2>
           <p className="regular-14 xl:regular-16 mt-5 text-white">
             Mari datang ke <i>workshop</i> kami. Kami akan memberikan solusi lebih lanjut untuk
-            perusahaan Anda, termasuk menerima <i>custom order</i>.
+            kebutuhan Anda, termasuk menerima <i>custom order</i>.
           </p>
           <p className="regular-14 xl:regular-16 mt-2 text-white">
             Lokasi kami:
