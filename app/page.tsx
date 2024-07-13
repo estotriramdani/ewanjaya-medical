@@ -1,4 +1,4 @@
-import Camp from "@/components/Camp";
+import LocationSection from "@/components/LocationSection";
 import Features from "@/components/Features";
 import GetApp from "@/components/GetApp";
 import Guide from "@/components/Guide";
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Camp />
+      <LocationSection />
       <Guide />
       <Features />
       <GetApp />

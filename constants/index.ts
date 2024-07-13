@@ -1,8 +1,13 @@
+export const sections = {
+  hero: 'hero-section',
+  location: 'location-section',
+}
+
 // NAVIGATION
 export const NAV_LINKS = [
-  { href: '/', key: 'home', label: 'Beranda' },
-  { href: '/', key: 'location', label: 'Lokasi' },
-  { href: '/', key: 'contact', label: 'Kontak' },
+  { href: '/', key: sections.hero, label: 'Beranda' },
+  { href: '/', key: sections.location, label: 'Lokasi' },
+  { href: '/', key: 'contact-section', label: 'Kontak' },
   { href: '/', key: 'product ', label: 'Produk ' },
 ];
 
