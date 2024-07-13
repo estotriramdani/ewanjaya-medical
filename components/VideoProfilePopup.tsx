@@ -11,12 +11,13 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import Image from 'next/image';
+import { buttonVariants } from './ui/button';
 
 const VideoProfilePopup = () => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="btn_white_text flexCenter gap-3 rounded-full border hover:cursor-pointer">
-        <Image src="/play.svg" alt="icon" width={24} height={24} />
+      <AlertDialogTrigger className={buttonVariants({ variant: 'white' })}>
+        <Image src="/play.svg" alt="icon" width={24} height={24} className='mr-2' />
         <label className="bold-16 whitespace-nowrap cursor-pointer">Video Profile</label>
       </AlertDialogTrigger>
       <AlertDialogContent>

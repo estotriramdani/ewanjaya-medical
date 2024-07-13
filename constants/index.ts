@@ -83,3 +83,6 @@ export const SOCIALS = {
     '/wordpress.svg',
   ],
 };
+
+export const TENDER_COUNT = 20;
+export const WHATSAPP_CONTACT = '6285703329747';
