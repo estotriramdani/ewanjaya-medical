@@ -28,12 +28,16 @@ const Hero = () => {
               ))}
           </div>
 
-          <p className="bold-16 lg:bold-20 text-blue-70">
-            {TENDER_COUNT}
-            <span className="regular-16 lg:regular-20 ml-1">
-              Tender berskala nasional telah selesai.
-            </span>
-          </p>
+          <div>
+            <p className="regular-16 lg:regular-20 ml-1 ">
+              <span className="bold-16 lg:bold-20 text-blue-70">{TENDER_COUNT}</span>
+              <span className=""> Tender berskala nasional telah selesai.</span>
+            </p>
+            <p className="regular-16 lg:regular-20 ml-1 ">
+              <span className="bold-16 lg:bold-20 text-blue-70">100.000+</span> produk telah
+              dipasarkan.
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-col w-full gap-3 sm:flex-row">
@@ -55,7 +59,7 @@ const Hero = () => {
               <p className="font-medium text-base text-green-50">Memiliki izin resmi dari</p>
               {/* <Image src="/close.svg" alt="close" width={24} height={24} /> */}
             </div>
-            <div className='space-y-3'>
+            <div className="space-y-3">
               <div className="relative w-full h-20 p-2 rounded-xl ">
                 <Image
                   alt="Kemenkes"
