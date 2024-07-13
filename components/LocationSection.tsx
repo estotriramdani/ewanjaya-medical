@@ -21,7 +21,7 @@ const LocationSection = () => {
       <div className="flexEnd mt-10 px-6 lg:-mt-60 lg:mr-6">
         <div className="bg-green-50 p-8 lg:max-w-[500px] xl:max-w-[734px] xl:rounded-5xl xl:px-14 xl:py-14 relative w-full overflow-hidden rounded-3xl">
           <h2 className="regular-24 md:regular-32 2xl:regular-64 capitalize text-white">
-            Memerlukan pertemuan langsung untuk <strong>dikusi lebih lanjut?</strong>
+            Memerlukan <strong>dikusi lebih lanjut?</strong>
           </h2>
           <p className="regular-14 xl:regular-16 mt-5 text-white">
             Mari datang ke <i>workshop</i> kami. Kami akan memberikan solusi lebih lanjut untuk

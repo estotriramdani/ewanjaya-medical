@@ -35,7 +35,7 @@ const Hero = () => {
             </p>
             <p className="regular-16 lg:regular-20 ml-1 ">
               <span className="bold-16 lg:bold-20 text-blue-70">100.000+</span> produk telah
-              dipasarkan.
+              dipasarkan ke berbagai rumah sakit dan fasilitas kesehatan lainnya.
             </p>
           </div>
         </div>
