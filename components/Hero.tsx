@@ -51,14 +51,33 @@ const Hero = () => {
       <div className="relative flex flex-1 items-start">
         <div className="relative z-20 flex w-[268px] flex-col gap-8 rounded-3xl bg-green-90 px-7 py-8">
           <div className="flex flex-col">
-            <div className="flexBetween">
-              <p className="regular-16 text-gray-20">Location</p>
-              <Image src="/close.svg" alt="close" width={24} height={24} />
+            <div className="flexBetween mb-3">
+              <p className="regular-16 text-gray-20">Memiliki izin resmi dari</p>
+              {/* <Image src="/close.svg" alt="close" width={24} height={24} /> */}
             </div>
-            <p className="bold-20 text-white">Aguas Calientes</p>
+            <div className='space-y-3'>
+              <div className="bg-white relative w-full h-20 p-2 rounded-xl ">
+                <Image
+                  alt="Logo Kemenkes"
+                  src="/img/kemenkes-logo.png"
+                  width={200}
+                  height={50}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+              <div className="bg-white relative w-full h-20 p-2 rounded-xl">
+                <Image
+                  alt="Logo Kemenkes"
+                  src="/img/kemenperin-logo.png"
+                  width={200}
+                  height={50}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="flexBetween">
+          {/* <div className="flexBetween">
             <div className="flex flex-col">
               <p className="regular-16 block text-gray-20">Distance</p>
               <p className="bold-20 text-white">173.28 mi</p>
@@ -67,7 +86,7 @@ const Hero = () => {
               <p className="regular-16 block text-gray-20">Elevation</p>
               <p className="bold-20 text-white">2.040 km</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
