@@ -8,6 +8,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import Image from 'next/image';
@@ -22,6 +23,7 @@ const VideoProfilePopup = () => {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
+          <AlertDialogTitle className="sr-only">Video Profile</AlertDialogTitle>
           <AlertDialogDescription>
             <iframe
               className="w-full aspect-video"

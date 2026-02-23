@@ -18,6 +18,34 @@ export const NAV_LINKS = [
 // CAMP SECTION
 export const PEOPLE_URL = ['/person-1.png', '/person-2.png', '/person-3.png', '/person-4.png'];
 
+// HISTORY SECTION
+export const HISTORY_ITEMS = [
+  {
+    year: '2000',
+    description: 'Diprakasai dan didirikan oleh Bapak Daswan dan Ibu Enung Komala',
+    bgColor: 'bg-[#1B2A3D]',
+    icon: '/features/production.png',
+  },
+  {
+    year: '2015',
+    description: 'Memperluas Jaringan Penjualan Produk Dengan Digitalisasi Marketing',
+    bgColor: 'bg-[#8BC34A]',
+    icon: '/features/cart.png',
+  },
+  {
+    year: '2022',
+    description: 'Diresmikan Sebagai Badan Usaha dan Legalisasi Perizinan',
+    bgColor: 'bg-[#26A69A]',
+    icon: '/features/price.png',
+  },
+  {
+    year: '2023',
+    description: 'Perancangan dan Membuat Mesin Produksi Secara Mandiri',
+    bgColor: 'bg-[#42A5F5]',
+    icon: '/features/after-sales.png',
+  },
+];
+
 // FEATURES SECTION
 export const FEATURES = [
   {
