@@ -27,6 +27,7 @@ export const EJ_BOOKS_NAV_LINKS = [
 export const EJ_BOOKS_INFO = {
   name: 'EJ Books',
   tagline: 'Terbit buku gratis, self publishing',
+  tagline2: 'Menerbitkan buku renyah dan ringan, juga berisi',
   description:
     'EJ Books adalah unit usaha dari PT Ewan Jaya Kastara yang berfokus pada penerbitan buku secara gratis melalui skema self publishing. Kami membantu para penulis mewujudkan karya mereka menjadi buku yang berkualitas dan siap dipasarkan.',
   visi: 'Menjadi penerbit independen terpercaya yang memberdayakan penulis Indonesia untuk menyebarkan ilmu dan inspirasi ke seluruh nusantara.',
@@ -51,12 +52,15 @@ export interface EJBook {
   coverImage: string;
   images: string[];
   category: string;
+  categories: string[];
+  qrcbn?: string;
   pages: number;
   isbn?: string;
   publishedDate: string;
   price: string;
   buyLink?: string;
   downloadLink?: string;
+  isBestSeller?: boolean;
 }
 
 export const EJ_BOOKS_LIST: EJBook[] = [
@@ -75,11 +79,14 @@ export const EJ_BOOKS_LIST: EJBook[] = [
       '/sample-book-covers/3.jpg',
     ],
     category: 'Panduan',
+    categories: ['Panduan', 'Menulis', 'Edukasi'],
+    qrcbn: 'QRCBN-2024-001',
     pages: 180,
     isbn: '978-602-0001-01-0',
     publishedDate: '2024-06-15',
     price: 'Gratis',
     downloadLink: '#',
+    isBestSeller: true,
   },
   {
     id: 'buku-002',
@@ -96,11 +103,14 @@ export const EJ_BOOKS_LIST: EJBook[] = [
       '/sample-book-covers/2.jpg',
     ],
     category: 'Fiksi',
+    categories: ['Fiksi', 'Cerpen', 'Budaya'],
+    qrcbn: 'QRCBN-2024-002',
     pages: 220,
     isbn: '978-602-0001-02-7',
     publishedDate: '2024-09-01',
     price: 'Gratis',
     downloadLink: '#',
+    isBestSeller: true,
   },
   {
     id: 'buku-003',
@@ -116,11 +126,14 @@ export const EJ_BOOKS_LIST: EJBook[] = [
       '/sample-book-covers/3.jpg',
     ],
     category: 'Bisnis',
+    categories: ['Bisnis', 'Digital', 'Marketing'],
+    qrcbn: 'QRCBN-2025-003',
     pages: 150,
     isbn: '978-602-0001-03-4',
     publishedDate: '2025-01-20',
     price: 'Rp 50.000',
     buyLink: '#',
+    isBestSeller: false,
   },
   {
     id: 'buku-004',
@@ -137,10 +150,13 @@ export const EJ_BOOKS_LIST: EJBook[] = [
       '/sample-book-covers/4.jpg',
     ],
     category: 'Puisi',
+    categories: ['Puisi', 'Sastra', 'Romansa'],
+    qrcbn: 'QRCBN-2025-004',
     pages: 120,
     publishedDate: '2025-03-10',
     price: 'Gratis',
     downloadLink: '#',
+    isBestSeller: false,
   },
   {
     id: 'buku-005',
@@ -156,10 +172,13 @@ export const EJ_BOOKS_LIST: EJBook[] = [
       '/sample-book-covers/5.jpg',
     ],
     category: 'Kategori 5',
+    categories: ['Kategori 5'],
+    qrcbn: 'QRCBN-2025-005',
     pages: 100,
     publishedDate: '2025-06-01',
     price: 'Gratis',
     downloadLink: '#',
+    isBestSeller: false,
   }
 ];
 

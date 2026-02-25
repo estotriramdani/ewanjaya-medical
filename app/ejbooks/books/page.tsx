@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import BookCatalogClient from '@/components/ejbooks/BookCatalogClient';
 import { EJ_BOOKS_LIST } from '@/constants/ejbooks';
 
 export const metadata: Metadata = {
@@ -52,44 +53,7 @@ export default function EJBooksCatalogPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {EJ_BOOKS_LIST.map((book) => (
-            <a
-              key={book.id}
-              href={`/ejbooks/books/${book.id}`}
-              className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-xl transition-all group"
-            >
-              <div className="aspect-square overflow-hidden relative">
-                <img
-                  src={book.coverImage}
-                  alt={book.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {/* Price badge */}
-                <span className="absolute top-3 right-3 bg-green-50 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                  {book.price}
-                </span>
-              </div>
-              <div className="p-5">
-                <h3 className="bold-18 text-gray-90 mb-1 group-hover:text-green-50 transition-colors">
-                  {book.title}
-                </h3>
-                <p className="text-sm text-gray-30 mb-3">
-                  oleh {book.authorPenName || book.author}
-                </p>
-                <p className="regular-14 text-gray-50 line-clamp-2 mb-4">
-                  {book.shortDescription}
-                </p>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-30">{book.pages} halaman</span>
-                  <span className="text-green-50 font-medium group-hover:underline">
-                    Lihat Detail →
-                  </span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
+        <BookCatalogClient />
 
         {EJ_BOOKS_LIST.length === 0 && (
           <div className="text-center py-20">
