@@ -33,7 +33,7 @@ const EJBooksNavbar = () => {
   return (
     <nav className="sticky top-0 z-30 bg-white border-b border-gray-100">
       <div className="max-container padding-container flexBetween py-4">
-        <a href="/ejbooks" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2">
           <EJBooksLogo size="md" />
         </a>
 
@@ -51,7 +51,7 @@ const EJBooksNavbar = () => {
 
         <div className="hidden lg:flex">
           <a
-            href="/ejbooks/submit"
+            href="/submit"
             className="inline-flex items-center justify-center rounded-full bg-green-50 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-600"
           >
             Terbitkan Buku
@@ -104,7 +104,7 @@ const EJBooksNavbar = () => {
           ))}
           <div className="mt-4 pt-4 border-t">
             <a
-              href="/ejbooks/submit"
+              href="/submit"
               onClick={close}
               className="flex items-center justify-center rounded-full bg-green-50 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-green-600"
             >

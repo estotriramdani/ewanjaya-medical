@@ -51,7 +51,7 @@ function HeroSection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="/ejbooks/submit"
+              href="/submit"
               className="inline-flex items-center justify-center rounded-full bg-white text-green-50 px-8 py-4 font-semibold transition-all hover:bg-gray-10 hover:scale-105 shadow-lg shadow-black/10"
             >
               ✍️ Terbitkan Buku Anda
@@ -133,7 +133,7 @@ function BestSellerSection() {
         {bestSellers.map((book) => (
           <a
             key={book.id}
-            href={`/ejbooks/books/${book.id}`}
+            href={`/books/${book.id}`}
             className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group border-2 border-yellow-50/30"
           >
             <div className="relative aspect-square overflow-hidden">
@@ -188,7 +188,7 @@ function BooksSection() {
               key={book.id}
               className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow group"
             >
-              <a href={`/ejbooks/books/${book.id}`} className="block aspect-square overflow-hidden">
+              <a href={`/books/${book.id}`} className="block aspect-square overflow-hidden">
                 <img
                   src={book.coverImage}
                   alt={book.title}
@@ -204,7 +204,7 @@ function BooksSection() {
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-semibold text-green-50">{formatBookPrice(book.price)}</span>
                   <a
-                    href={`/ejbooks/books/${book.id}`}
+                    href={`/books/${book.id}`}
                     className="text-sm font-medium text-green-50 hover:underline"
                   >
                     Detail →
@@ -217,7 +217,7 @@ function BooksSection() {
 
         <div className="text-center mt-10">
           <a
-            href="/ejbooks/books"
+            href="/books"
             className="inline-flex items-center justify-center rounded-full bg-green-50 text-white px-8 py-3 font-semibold transition-all hover:bg-green-600 hover:scale-105"
           >
             Lihat Semua Buku →
@@ -298,7 +298,7 @@ function PublishingTimelineSection() {
 
       <div className="text-center mt-12">
         <a
-          href="/ejbooks/submit"
+          href="/submit"
           className="inline-flex items-center gap-2 rounded-full bg-green-50 text-white px-8 py-3.5 font-semibold transition-all hover:bg-green-600 hover:scale-105"
         >
           <Pen className="w-4 h-4" />
@@ -373,7 +373,7 @@ function CTASection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/ejbooks/submit"
+              href="/submit"
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-white text-green-50 px-8 py-4 font-bold text-lg transition-all hover:bg-gray-10 hover:scale-105 shadow-xl shadow-black/10 animate-pulse-glow"
             >
               ✍️ Mulai Terbitkan
@@ -584,7 +584,7 @@ function BottomCTASection() {
           membantu mewujudkannya menjadi buku nyata yang bisa dibaca oleh semua orang.
         </p>
         <a
-          href="/ejbooks/submit"
+          href="/submit"
           className="inline-flex items-center justify-center rounded-full bg-green-50 text-white px-10 py-4 font-semibold text-lg transition-all hover:bg-green-600 hover:scale-105"
         >
           ✍️ Terbitkan Buku Sekarang

@@ -26,7 +26,7 @@ export default function EJBooksSocialLinksPage() {
             </p>
             <div className="mt-6">
               <a
-                href="/ejbooks/submit"
+                href="/submit"
                 className="inline-flex items-center gap-2 rounded-full bg-white text-green-50 px-4 py-2 font-semibold shadow hover:scale-105 transition-all"
               >
                 ✍️ Kirim Naskah

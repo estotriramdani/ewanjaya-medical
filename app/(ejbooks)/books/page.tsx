@@ -24,7 +24,7 @@ export default function EJBooksCatalogPage() {
 
         <div className="max-container padding-container relative z-10 py-20 lg:py-24">
           <a
-            href="/ejbooks"
+            href="/"
             className="inline-flex items-center gap-1 text-white/60 hover:text-white text-sm mb-8 transition-colors"
           >
             ← Kembali ke EJ Books
@@ -63,7 +63,7 @@ export default function EJBooksCatalogPage() {
               Jadilah penulis pertama yang menerbitkan buku di EJ Books!
             </p>
             <a
-              href="/ejbooks/submit"
+              href="/submit"
               className="inline-flex items-center justify-center rounded-full bg-green-50 text-white px-8 py-3 font-semibold mt-6 hover:bg-green-600 transition-colors"
             >
               Terbitkan Buku Anda
@@ -81,7 +81,7 @@ export default function EJBooksCatalogPage() {
             Books.
           </p>
           <a
-            href="/ejbooks/submit"
+            href="/submit"
             className="inline-flex items-center justify-center rounded-full bg-green-50 text-white px-8 py-3 font-semibold hover:bg-green-600 transition-colors"
           >
             ✍️ Terbitkan Buku

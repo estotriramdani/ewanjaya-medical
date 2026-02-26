@@ -230,7 +230,7 @@ function SubmissionForm({
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/ejbooks"
+                href="/"
                 className="inline-flex items-center justify-center rounded-full bg-green-50 text-white px-8 py-3 font-semibold hover:bg-green-600 transition-colors"
               >
                 Kembali ke Beranda
@@ -522,7 +522,7 @@ export default function EJBooksSubmitClient() {
         <div className="max-container padding-container relative z-10 py-20 lg:py-28">
           <div className="max-w-3xl">
             <a
-              href="/ejbooks"
+              href="/"
               className="inline-flex items-center gap-1 text-white/60 hover:text-white text-sm mb-8 transition-colors"
             >
               ← Kembali ke EJ Books

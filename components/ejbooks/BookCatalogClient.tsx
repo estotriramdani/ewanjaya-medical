@@ -67,7 +67,7 @@ export default function BookCatalogClient() {
           {filtered.map((book: EJBook) => (
             <a
               key={book.id}
-              href={`/ejbooks/books/${book.id}`}
+              href={`/books/${book.id}`}
               className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-xl transition-all group"
             >
               <div className="aspect-square overflow-hidden relative">

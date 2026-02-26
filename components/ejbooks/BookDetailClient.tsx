@@ -282,7 +282,7 @@ export default function BookDetailClient({ bookId }: { bookId: string }) {
           Buku yang Anda cari tidak tersedia atau sudah dihapus.
         </p>
         <a
-          href="/ejbooks/books"
+          href="/books"
           className="inline-flex items-center justify-center rounded-full bg-green-50 text-white px-8 py-3 font-semibold hover:bg-green-600 transition-colors"
         >
           Kembali ke Katalog
@@ -296,7 +296,7 @@ export default function BookDetailClient({ bookId }: { bookId: string }) {
       <section className="max-container padding-container py-8 lg:py-16">
         <div className="max-w-5xl mx-auto">
           <a
-            href="/ejbooks/books"
+            href="/books"
             className="inline-flex items-center gap-1 text-gray-30 hover:text-green-50 text-sm mb-8 transition-colors"
           >
             ← Kembali ke Katalog
@@ -320,7 +320,7 @@ export default function BookDetailClient({ bookId }: { bookId: string }) {
                 .map((relatedBook) => (
                   <a
                     key={relatedBook.id}
-                    href={`/ejbooks/books/${relatedBook.id}`}
+                    href={`/books/${relatedBook.id}`}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all group"
                   >
                     <div className="aspect-square overflow-hidden">

@@ -8,7 +8,7 @@ const EJBooksFooter = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-4">
-            <a href="/ejbooks" className="flex items-center gap-2">
+            <a href="/" className="flex items-center gap-2">
               <EJBooksLogo size="md" className="[&_span]:text-white" />
             </a>
             <p className="regular-14 text-gray-20">
@@ -87,7 +87,7 @@ const EJBooksFooter = () => {
             {new Date().getFullYear()} EJ Books — PT Ewan Jaya Kastara. All rights reserved.
           </p>
           <a
-            href="/"
+            href="/medical"
             className="regular-14 text-gray-30 hover:text-white transition-colors"
           >
             ← Kembali ke EJ Medical

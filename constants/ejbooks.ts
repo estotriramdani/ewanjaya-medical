@@ -15,12 +15,12 @@ export const EJ_BOOKS_SECTIONS = {
 
 // NAV LINKS (EJ Books)
 export const EJ_BOOKS_NAV_LINKS = [
-  { href: `/ejbooks#${EJ_BOOKS_SECTIONS.hero}`, key: 'beranda', label: 'Beranda' },
-  { href: `/ejbooks#${EJ_BOOKS_SECTIONS.books}`, key: 'buku', label: 'Buku' },
-  { href: '/ejbooks/submit', key: 'terbitkan', label: 'Terbitkan Buku' },
-  { href: `/ejbooks#${EJ_BOOKS_SECTIONS.faq}`, key: 'faq', label: 'FAQ' },
-  { href: `/ejbooks#${EJ_BOOKS_SECTIONS.contact}`, key: 'kontak', label: 'Kontak' },
-  { href: '/ejbooks/social-links', key: 'social', label: 'Social Links' },
+  { href: `/#${EJ_BOOKS_SECTIONS.hero}`, key: 'beranda', label: 'Beranda' },
+  { href: `/#${EJ_BOOKS_SECTIONS.books}`, key: 'buku', label: 'Buku' },
+  { href: '/submit', key: 'terbitkan', label: 'Terbitkan Buku' },
+  { href: `/#${EJ_BOOKS_SECTIONS.faq}`, key: 'faq', label: 'FAQ' },
+  { href: `/#${EJ_BOOKS_SECTIONS.contact}`, key: 'kontak', label: 'Kontak' },
+  { href: '/social-links', key: 'social', label: 'Social Links' },
 ];
 
 // ABOUT / INFO
@@ -534,7 +534,7 @@ export const EJ_BOOKS_SOCIAL_LINKS: SocialLink[] = [
     id: 'submit',
     platform: 'Terbitkan Buku',
     label: 'Kirim Naskah Anda',
-    url: '/ejbooks/submit',
+    url: '/submit',
     icon: '✍️',
     description: 'Mulai perjalanan penerbitan buku Anda sekarang.',
   },
