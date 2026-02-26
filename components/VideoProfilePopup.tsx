@@ -13,8 +13,14 @@ import {
 } from '@/components/ui/alert-dialog';
 import Image from 'next/image';
 import { buttonVariants } from './ui/button';
+import { useMedical } from '@/lib/MedicalProvider';
+
+const DEFAULT_VIDEO_URL = 'https://www.youtube.com/embed/oGeh4gkXAWo?si=SY0ZDdOvg5JT9O3s';
 
 const VideoProfilePopup = () => {
+  const { settings } = useMedical();
+  const videoUrl = settings.video_profile_url || DEFAULT_VIDEO_URL;
+
   return (
     <AlertDialog>
       <AlertDialogTrigger className={buttonVariants({ variant: 'white' })}>
@@ -27,7 +33,7 @@ const VideoProfilePopup = () => {
           <AlertDialogDescription>
             <iframe
               className="w-full aspect-video"
-              src="https://www.youtube.com/embed/oGeh4gkXAWo?si=SY0ZDdOvg5JT9O3s"
+              src={videoUrl}
               title="Profile Ewan Jaya Kastara"
               frameBorder={0}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

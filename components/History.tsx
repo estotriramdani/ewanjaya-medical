@@ -1,8 +1,12 @@
+'use client';
+
 import React from 'react';
-import { HISTORY_ITEMS } from '@/constants';
 import { cn } from '@/lib/utils';
+import { useMedical } from '@/lib/MedicalProvider';
 
 const History = () => {
+  const { history } = useMedical();
+
   return (
     <section className="max-container padding-container py-16 lg:py-24">
       <div className="mb-4">
@@ -11,7 +15,7 @@ const History = () => {
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {HISTORY_ITEMS.map((item) => (
+        {history.map((item) => (
           <div
             key={item.year}
             className={cn(

@@ -1,9 +1,13 @@
+'use client';
+
 import { SECTIONS } from '@/constants';
 import React from 'react';
 import ProductCard from './ProductCard';
-import { PRODUCTS } from '@/constants/products';
+import { useMedical } from '@/lib/MedicalProvider';
 
 const ProductSection = () => {
+  const { products } = useMedical();
+
   return (
     <section id={SECTIONS.product} className="">
       <div className="padding-container max-container w-full pb-24">
@@ -13,7 +17,7 @@ const ProductSection = () => {
           <i>custom order</i>.
         </p>
         <div className="mt-6 gap-3 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {PRODUCTS.map((product, index) => (
+          {products.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>

@@ -6,6 +6,7 @@ import History from '@/components/History';
 import ProductSection from '@/components/ProductSection';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { MedicalProvider } from '@/lib/MedicalProvider';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
+    <MedicalProvider>
       <Navbar />
       <main className="relative overflow-hidden">
         <Hero />
@@ -29,6 +30,6 @@ export default function Home() {
         <GetApp />
       </main>
       <Footer />
-    </>
+    </MedicalProvider>
   );
 }

@@ -1,10 +1,16 @@
+'use client';
+
 import React from 'react';
-import Image from 'next/image';
 import { buttonVariants } from '@/components/ui/button';
 import { Mail, Phone } from 'lucide-react';
-import { SECTIONS, WHATSAPP_CONTACT } from '@/constants';
+import { SECTIONS } from '@/constants';
+import { useMedical } from '@/lib/MedicalProvider';
 
 const GetApp = () => {
+  const { settings } = useMedical();
+  const whatsappContact = settings.whatsapp_contact || '6285703329747';
+  const adminEmail = settings.admin_email || 'ewanjayakastara@gmail.com';
+
   return (
     <section id={SECTIONS.contact} className="flexCenter w-full flex-col pb-[100px]">
       <div className="get-app">
@@ -16,7 +22,7 @@ const GetApp = () => {
           <div className="flex w-full flex-col gap-3 whitespace-nowrap xl:flex-row">
             <a
               target="_blank"
-              href="mailto:ewanjayakastara@gmail.com"
+              href={`mailto:${adminEmail}`}
               className={buttonVariants({
                 variant: 'green',
                 size: 'lg',
@@ -27,7 +33,7 @@ const GetApp = () => {
             </a>
             <a
               target="_blank"
-              href={`https://wa.me/${WHATSAPP_CONTACT}`}
+              href={`https://wa.me/${whatsappContact}`}
               className={buttonVariants({
                 variant: 'white',
                 size: 'lg',
@@ -40,7 +46,6 @@ const GetApp = () => {
         </div>
 
         <div className="flex flex-1 items-center justify-end">
-          {/* <Image src="/phones.png" alt="phones" width={550} height={870} /> */}
         </div>
       </div>
     </section>

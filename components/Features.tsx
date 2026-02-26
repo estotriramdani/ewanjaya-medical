@@ -1,9 +1,10 @@
 'use client';
 
-import { FEATURES, SECTIONS } from '@/constants'
+import { SECTIONS } from '@/constants'
 import Image from 'next/image'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { useMedical } from '@/lib/MedicalProvider'
 
 const CARD_COLORS = [
   { bg: 'bg-[#1B2A3D]', iconBg: 'bg-white/15', hoverBorder: 'hover:border-[#2a4060]' },
@@ -13,6 +14,8 @@ const CARD_COLORS = [
 ]
 
 const Features = () => {
+  const { features } = useMedical()
+
   return (
     <section id={SECTIONS.features} className="bg-gray-10 py-16 lg:py-24">
       <div className="max-container padding-container w-full">
@@ -26,7 +29,7 @@ const Features = () => {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {FEATURES.map((feature, index) => (
+          {features.map((feature, index) => (
             <FeatureCard
               key={feature.title}
               title={feature.title}

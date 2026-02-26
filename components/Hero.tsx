@@ -1,9 +1,16 @@
+'use client';
+
 import Image from 'next/image';
 import VideoProfilePopup from './VideoProfilePopup';
-import { SECTIONS, TENDER_COUNT, WHATSAPP_CONTACT } from '@/constants';
+import { SECTIONS } from '@/constants';
 import { buttonVariants } from './ui/button';
+import { useMedical } from '@/lib/MedicalProvider';
 
 const Hero = () => {
+  const { settings } = useMedical();
+  const tenderCount = settings.tender_count || '20';
+  const whatsappContact = settings.whatsapp_contact || '6285703329747';
+
   return (
     <section
       id={SECTIONS.hero}
@@ -33,7 +40,7 @@ const Hero = () => {
 
           <div>
             <p className="regular-16 lg:regular-20 ml-1 ">
-              <span className="bold-16 lg:bold-20 text-blue-70">{TENDER_COUNT}</span>
+              <span className="bold-16 lg:bold-20 text-blue-70">{tenderCount}</span>
               <span className=""> Tender berskala nasional telah selesai dengan baik.</span>
             </p>
             <p className="regular-16 lg:regular-20 ml-1 ">
@@ -44,11 +51,10 @@ const Hero = () => {
         </div>
 
         <div className="flex flex-col w-full gap-3 sm:flex-row">
-          {/* <Button type="button" title="Download App" variant="btn_green" onClick={() => {}} /> */}
           <a
             className={buttonVariants({ variant: 'green', className: 'flex items-center' })}
             target="_blank"
-            href={`https://wa.me/${WHATSAPP_CONTACT}`}
+            href={`https://wa.me/${whatsappContact}`}
           >
             <Image
               src="/whatsapp.png"
