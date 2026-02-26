@@ -12,6 +12,7 @@ import {
   EJ_BOOKS_SECTIONS,
   EJ_BOOKS_PUBLISHING_FLOW,
   EJ_BOOKS_PUBLISHING_PACKAGES,
+  formatBookPrice,
 } from '@/constants/ejbooks';
 
 // ===================== HERO =====================
@@ -145,14 +146,14 @@ function BestSellerSection() {
                 🔥 Best Seller
               </span>
               <span className="absolute top-3 right-3 bg-green-50 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                {book.price}
+                {formatBookPrice(book.price)}
               </span>
             </div>
             <div className="p-5">
               <h3 className="bold-18 text-gray-90 mb-1 group-hover:text-green-50 transition-colors">
                 {book.title}
               </h3>
-              <p className="text-sm text-gray-30 mb-2">oleh {book.authorPenName || book.author}</p>
+              <p className="text-sm text-gray-30 mb-2">oleh {book.author.penName || book.author.name}</p>
               <p className="regular-14 text-gray-50 mb-3 line-clamp-2">{book.shortDescription}</p>
               <span className="text-sm font-medium text-green-50 group-hover:underline">
                 Lihat Detail →
@@ -198,10 +199,10 @@ function BooksSection() {
                 <h3 className="bold-18 text-gray-90 mb-1 group-hover:text-green-50 transition-colors">
                   {book.title}
                 </h3>
-                <p className="text-sm text-gray-30 mb-2">oleh {book.authorPenName || book.author}</p>
+                <p className="text-sm text-gray-30 mb-2">oleh {book.author.penName || book.author.name}</p>
                 <p className="regular-14 text-gray-50 mb-4 line-clamp-2">{book.shortDescription}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-green-50">{book.price}</span>
+                  <span className="text-sm font-semibold text-green-50">{formatBookPrice(book.price)}</span>
                   <a
                     href={`/ejbooks/books/${book.id}`}
                     className="text-sm font-medium text-green-50 hover:underline"

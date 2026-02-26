@@ -41,12 +41,57 @@ export const EJ_BOOKS_INFO = {
     'EJ Books didirikan sebagai divisi penerbitan dari PT Ewan Jaya Kastara pada tahun 2024. Berawal dari keinginan untuk memberdayakan penulis-penulis muda Indonesia yang kesulitan menerbitkan karyanya, EJ Books hadir dengan konsep self publishing yang ramah dan profesional. Kini, EJ Books telah membantu puluhan penulis menerbitkan buku pertama mereka.',
 };
 
+// AUTHOR INTERFACE & LIST
+export interface EJAuthor {
+  id: string;
+  name: string;
+  penName?: string;
+  email: string;
+  bio?: string;
+  avatar?: string;
+}
+
+export const EJ_BOOKS_AUTHORS: EJAuthor[] = [
+  {
+    id: 'author-001',
+    name: 'Ahmad Fauzi',
+    penName: 'A. Fauzi',
+    email: 'ahmadfauzi@email.com',
+    bio: 'Penulis dan pelatih menulis berpengalaman yang telah membantu ratusan orang memulai perjalanan menulis mereka.',
+  },
+  {
+    id: 'author-002',
+    name: 'Siti Nurhaliza',
+    penName: 'S. Nur',
+    email: 'sitinurhaliza@email.com',
+    bio: 'Penulis cerpen dan budayawan yang aktif mendokumentasikan kehidupan masyarakat di pelosok Indonesia.',
+  },
+  {
+    id: 'author-003',
+    name: 'Rendi Pratama',
+    email: 'rendipratama@email.com',
+    bio: 'Praktisi bisnis digital dan content creator yang fokus membagikan ilmu kewirausahaan untuk generasi muda.',
+  },
+  {
+    id: 'author-004',
+    name: 'Dewi Anggraeni',
+    penName: 'Dewi A.',
+    email: 'dewianggraeni@email.com',
+    bio: 'Penyair dan sastrawan yang dikenal melalui karya-karya puisinya yang menyentuh hati.',
+  },
+  {
+    id: 'author-005',
+    name: 'Nama Penulis 5',
+    penName: 'PenName 5',
+    email: 'namapenulis5@email.com',
+  },
+];
+
 // BOOK INTERFACE & LIST
 export interface EJBook {
   id: string;
   title: string;
-  author: string;
-  authorPenName?: string;
+  author: EJAuthor;
   description: string;
   shortDescription: string;
   coverImage: string;
@@ -57,18 +102,22 @@ export interface EJBook {
   pages: number;
   isbn?: string;
   publishedDate: string;
-  price: string;
+  price: number;
   buyLink?: string;
   downloadLink?: string;
   isBestSeller?: boolean;
+}
+
+export function formatBookPrice(price: number): string {
+  if (price === 0) return 'Gratis';
+  return `Rp ${price.toLocaleString('id-ID')}`;
 }
 
 export const EJ_BOOKS_LIST: EJBook[] = [
   {
     id: 'buku-001',
     title: 'Langkah Pertama Menulis',
-    author: 'Ahmad Fauzi',
-    authorPenName: 'A. Fauzi',
+    author: EJ_BOOKS_AUTHORS[0],
     description:
       'Buku panduan lengkap bagi pemula yang ingin memulai perjalanan menulis. Dari menemukan ide hingga menyusun naskah pertama, buku ini akan menjadi teman setia Anda. Dilengkapi dengan latihan-latihan praktis dan tips dari penulis berpengalaman.',
     shortDescription: 'Panduan lengkap menulis untuk pemula.',
@@ -84,15 +133,14 @@ export const EJ_BOOKS_LIST: EJBook[] = [
     pages: 180,
     isbn: '978-602-0001-01-0',
     publishedDate: '2024-06-15',
-    price: 'Gratis',
+    price: 0,
     downloadLink: '#',
     isBestSeller: true,
   },
   {
     id: 'buku-002',
     title: 'Cerita dari Ujung Negeri',
-    author: 'Siti Nurhaliza',
-    authorPenName: 'S. Nur',
+    author: EJ_BOOKS_AUTHORS[1],
     description:
       'Kumpulan cerpen yang mengangkat kisah-kisah masyarakat di pelosok Indonesia. Dari Sabang sampai Merauke, setiap cerita menghadirkan kehangatan dan keunikan budaya lokal yang jarang tersentuh media mainstream.',
     shortDescription: 'Kumpulan cerpen dari pelosok Indonesia.',
@@ -108,14 +156,14 @@ export const EJ_BOOKS_LIST: EJBook[] = [
     pages: 220,
     isbn: '978-602-0001-02-7',
     publishedDate: '2024-09-01',
-    price: 'Gratis',
+    price: 0,
     downloadLink: '#',
     isBestSeller: true,
   },
   {
     id: 'buku-003',
     title: 'Bisnis Digital untuk Generasi Z',
-    author: 'Rendi Pratama',
+    author: EJ_BOOKS_AUTHORS[2],
     description:
       'Buku ini membahas strategi membangun bisnis digital yang relevan dengan era Gen Z. Mulai dari branding, social media marketing, hingga monetisasi konten. Cocok untuk anak muda yang ingin mulai berwirausaha di dunia digital.',
     shortDescription: 'Strategi bisnis digital untuk anak muda.',
@@ -131,15 +179,14 @@ export const EJ_BOOKS_LIST: EJBook[] = [
     pages: 150,
     isbn: '978-602-0001-03-4',
     publishedDate: '2025-01-20',
-    price: 'Rp 50.000',
+    price: 50000,
     buyLink: '#',
     isBestSeller: false,
   },
   {
     id: 'buku-004',
     title: 'Puisi Hujan di Bulan Juni',
-    author: 'Dewi Anggraeni',
-    authorPenName: 'Dewi A.',
+    author: EJ_BOOKS_AUTHORS[3],
     description:
       'Antologi puisi yang menggambarkan perasaan cinta, rindu, dan harapan. Setiap bait kata mengalir seperti hujan di bulan Juni, menyentuh hati dan menghidupkan imajinasi pembaca.',
     shortDescription: 'Antologi puisi tentang cinta dan harapan.',
@@ -154,15 +201,14 @@ export const EJ_BOOKS_LIST: EJBook[] = [
     qrcbn: 'QRCBN-2025-004',
     pages: 120,
     publishedDate: '2025-03-10',
-    price: 'Gratis',
+    price: 0,
     downloadLink: '#',
     isBestSeller: false,
   },
   {
     id: 'buku-005',
     title: 'Judul Buku 5',
-    author: 'Nama Penulis 5',
-    authorPenName: 'PenName 5',
+    author: EJ_BOOKS_AUTHORS[4],
     description: 'Deskripsi buku 5.',
     shortDescription: 'Deskripsi singkat buku 5.',
     coverImage: '/sample-book-covers/5.jpg',
@@ -176,7 +222,7 @@ export const EJ_BOOKS_LIST: EJBook[] = [
     qrcbn: 'QRCBN-2025-005',
     pages: 100,
     publishedDate: '2025-06-01',
-    price: 'Gratis',
+    price: 0,
     downloadLink: '#',
     isBestSeller: false,
   }

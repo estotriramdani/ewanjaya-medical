@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { EJ_BOOKS_LIST, EJ_BOOKS_SOCIAL_LINKS, type EJBook } from '@/constants/ejbooks';
+import { EJ_BOOKS_LIST, EJ_BOOKS_SOCIAL_LINKS, formatBookPrice, type EJBook } from '@/constants/ejbooks';
 import { ChevronLeft, ChevronRight, Download, ShoppingCart, X, Loader2 } from 'lucide-react';
 
 function BookGallery({ book }: { book: EJBook }) {
@@ -96,7 +96,7 @@ function WhatsAppOrderModal({
     setIsRedirecting(true);
 
     const message = encodeURIComponent(
-      `Halo EJ Books! 👋\n\nSaya ingin memesan buku cetak:\n📕 Judul: ${book.title}\n✍️ Penulis: ${book.author}\n💰 Harga: ${book.price}\n\nNama saya: ${name.trim()}\n\nMohon info selanjutnya. Terima kasih!`
+      `Halo EJ Books! 👋\n\nSaya ingin memesan buku cetak:\n📕 Judul: ${book.title}\n✍️ Penulis: ${book.author.name}\n💰 Harga: ${formatBookPrice(book.price)}\n\nNama saya: ${name.trim()}\n\nMohon info selanjutnya. Terima kasih!`
     );
 
     const url = `https://wa.me/${waNumber}?text=${message}`;
@@ -138,8 +138,8 @@ function WhatsAppOrderModal({
           />
           <div className="min-w-0">
             <p className="bold-16 text-gray-90 truncate">{book.title}</p>
-            <p className="text-sm text-gray-30">{book.author}</p>
-            <p className="text-sm font-semibold text-green-50 mt-1">{book.price}</p>
+            <p className="text-sm text-gray-30">{book.author.name}</p>
+            <p className="text-sm font-semibold text-green-50 mt-1">{formatBookPrice(book.price)}</p>
           </div>
         </div>
 
@@ -194,15 +194,15 @@ function BookDetail({ book }: { book: EJBook }) {
 
       {/* Author */}
       <p className="regular-18 text-gray-50">
-        oleh <span className="font-semibold text-gray-90">{book.author}</span>
-        {book.authorPenName && (
-          <span className="text-gray-30"> ({book.authorPenName})</span>
+        oleh <span className="font-semibold text-gray-90">{book.author.name}</span>
+        {book.author.penName && (
+          <span className="text-gray-30"> ({book.author.penName})</span>
         )}
       </p>
 
       {/* Price */}
       <div className="bg-green-50/10 rounded-xl p-4">
-        <span className="bold-32 text-green-50">{book.price}</span>
+        <span className="bold-32 text-green-50">{formatBookPrice(book.price)}</span>
       </div>
 
       {/* Description */}
@@ -335,7 +335,7 @@ export default function BookDetailClient({ bookId }: { bookId: string }) {
                         {relatedBook.title}
                       </h3>
                       <p className="text-sm text-gray-30">
-                        {relatedBook.authorPenName || relatedBook.author}
+                        {relatedBook.author.penName || relatedBook.author.name}
                       </p>
                     </div>
                   </a>

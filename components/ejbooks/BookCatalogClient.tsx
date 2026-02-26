@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { EJ_BOOKS_LIST, type EJBook } from '@/constants/ejbooks';
+import { EJ_BOOKS_LIST, formatBookPrice, type EJBook } from '@/constants/ejbooks';
 import { Search } from 'lucide-react';
 
 export default function BookCatalogClient() {
@@ -21,8 +21,8 @@ export default function BookCatalogClient() {
       if (!q) return true;
       return (
         b.title.toLowerCase().includes(q) ||
-        (b.author && b.author.toLowerCase().includes(q)) ||
-        (b.authorPenName && b.authorPenName.toLowerCase().includes(q))
+        (b.author.name && b.author.name.toLowerCase().includes(q)) ||
+        (b.author.penName && b.author.penName.toLowerCase().includes(q))
       );
     });
   }, [query, category]);
@@ -77,14 +77,14 @@ export default function BookCatalogClient() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <span className="absolute top-3 right-3 bg-green-50 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                  {book.price}
+                  {formatBookPrice(book.price)}
                 </span>
               </div>
               <div className="p-5">
                 <h3 className="bold-18 text-gray-90 mb-1 group-hover:text-green-50 transition-colors">
                   {book.title}
                 </h3>
-                <p className="text-sm text-gray-30 mb-3">oleh {book.authorPenName || book.author}</p>
+                <p className="text-sm text-gray-30 mb-3">oleh {book.author.penName || book.author.name}</p>
                 <p className="regular-14 text-gray-50 line-clamp-2 mb-4">{book.shortDescription}</p>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-30">{book.pages} halaman</span>
