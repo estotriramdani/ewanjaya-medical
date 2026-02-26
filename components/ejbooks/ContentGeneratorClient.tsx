@@ -6,6 +6,8 @@ import {
   Maximize, Minimize, Image as ImageIcon, MessageSquareQuote,
   Megaphone, Star, ChevronLeft, ChevronRight, Plus, Trash2,
   Save, Pencil, Type, ImagePlus, GripVertical, Download,
+  Heart, Sparkles, Flame, BookOpen, Feather, Coffee,
+  Sun, Moon, CloudRain, Leaf, Music, Zap, Award, Quote,
 } from 'lucide-react';
 import {
   EJ_BOOKS_LIST,
@@ -21,6 +23,13 @@ import {
 type Template = 'book' | 'quote' | 'announcement' | 'testimonial' | 'custom';
 type AspectRatio = '1:1' | '4:5';
 type BgTheme = 'green' | 'white' | 'dark' | 'gradient';
+type QuoteLayout = 'center' | 'left' | 'big' | 'minimal' | 'card' | 'split';
+
+interface QuoteDecoration {
+  id: string;
+  label: string;
+  render: (size?: number) => React.ReactNode;
+}
 
 interface CustomElement {
   id: string;
@@ -48,6 +57,8 @@ interface SavedProject {
   selectedBookIndex: number;
   bookQuoteText: string;
   quoteSlides: { text: string; author: string }[];
+  quoteLayout: QuoteLayout;
+  quoteDecorations: string[];
   selectedAnnouncementIndex: number;
   selectedTestimonialIndex: number;
   customSlides: CustomSlide[];
@@ -75,6 +86,40 @@ const SLIDE_SIZES: Record<AspectRatio, { width: number; height: number }> = {
   '1:1': { width: 540, height: 540 },
   '4:5': { width: 540, height: 675 },
 };
+
+// ---- Quote Layouts ----
+const QUOTE_LAYOUTS: { key: QuoteLayout; label: string; icon: string }[] = [
+  { key: 'center', label: 'Tengah', icon: '⬜' },
+  { key: 'left', label: 'Kiri', icon: '◧' },
+  { key: 'big', label: 'Besar', icon: '🔤' },
+  { key: 'minimal', label: 'Minimal', icon: '—' },
+  { key: 'card', label: 'Kartu', icon: '🃏' },
+  { key: 'split', label: 'Split', icon: '◨' },
+];
+
+// ---- Quote Decorations ----
+const QUOTE_DECORATIONS: QuoteDecoration[] = [
+  { id: 'heart', label: '❤️ Hati', render: (s = 32) => <Heart className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'sparkles', label: '✨ Sparkle', render: (s = 32) => <Sparkles className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'flame', label: '🔥 Api', render: (s = 32) => <Flame className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'book', label: '📖 Buku', render: (s = 32) => <BookOpen className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'feather', label: '🪶 Bulu', render: (s = 32) => <Feather className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'coffee', label: '☕ Kopi', render: (s = 32) => <Coffee className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'sun', label: '☀️ Matahari', render: (s = 32) => <Sun className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'moon', label: '🌙 Bulan', render: (s = 32) => <Moon className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'rain', label: '🌧️ Hujan', render: (s = 32) => <CloudRain className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'leaf', label: '🍃 Daun', render: (s = 32) => <Leaf className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'music', label: '🎵 Musik', render: (s = 32) => <Music className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'zap', label: '⚡ Petir', render: (s = 32) => <Zap className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'award', label: '🏆 Trophy', render: (s = 32) => <Award className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'star', label: '⭐ Bintang', render: (s = 32) => <Star className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'quote', label: '💬 Kutipan', render: (s = 32) => <Quote className="opacity-20" style={{ width: s, height: s }} /> },
+  { id: 'emoji-fire', label: '🔥', render: (s = 32) => <span className="opacity-30" style={{ fontSize: s }}>🔥</span> },
+  { id: 'emoji-star', label: '⭐', render: (s = 32) => <span className="opacity-30" style={{ fontSize: s }}>⭐</span> },
+  { id: 'emoji-sparkle', label: '✨', render: (s = 32) => <span className="opacity-30" style={{ fontSize: s }}>✨</span> },
+  { id: 'emoji-butterfly', label: '🦋', render: (s = 32) => <span className="opacity-30" style={{ fontSize: s }}>🦋</span> },
+  { id: 'emoji-flower', label: '🌸', render: (s = 32) => <span className="opacity-30" style={{ fontSize: s }}>🌸</span> },
+];
 
 interface LayoutTemplate {
   id: string;
@@ -358,6 +403,8 @@ export default function ContentGeneratorClient() {
 
   // Quote template (multiple slides)
   const [quoteSlides, setQuoteSlides] = useState([{ text: '', author: '' }]);
+  const [quoteLayout, setQuoteLayout] = useState<QuoteLayout>('center');
+  const [quoteDecorations, setQuoteDecorations] = useState<string[]>([]);
 
   // Announcement / Testimonial
   const [selectedAnnouncementIndex, setSelectedAnnouncementIndex] = useState(0);
@@ -534,6 +581,8 @@ export default function ContentGeneratorClient() {
       selectedBookIndex,
       bookQuoteText,
       quoteSlides,
+      quoteLayout,
+      quoteDecorations,
       selectedAnnouncementIndex,
       selectedTestimonialIndex,
       customSlides,
@@ -555,6 +604,8 @@ export default function ContentGeneratorClient() {
     setSelectedBookIndex(project.selectedBookIndex);
     setBookQuoteText(project.bookQuoteText || '');
     setQuoteSlides(project.quoteSlides || [{ text: '', author: '' }]);
+    setQuoteLayout(project.quoteLayout || 'center');
+    setQuoteDecorations(project.quoteDecorations || []);
     setSelectedAnnouncementIndex(project.selectedAnnouncementIndex);
     setSelectedTestimonialIndex(project.selectedTestimonialIndex);
     setCustomSlides(project.customSlides || [{ id: uid(), elements: [], bgTheme: 'green' }]);
@@ -615,15 +666,91 @@ export default function ContentGeneratorClient() {
 
     if (template === 'quote') {
       const slide = quoteSlides[activeSlide] || quoteSlides[0];
+      const text = slide.text || 'Tulis kutipan di panel kiri...';
+      const author = slide.author;
+      const decoItems = quoteDecorations.map(id => QUOTE_DECORATIONS.find(d => d.id === id)).filter(Boolean) as QuoteDecoration[];
+
+      const DecoCorners = () =>
+        decoItems.length > 0 ? (
+          <>
+            <div className="absolute top-4 left-4 flex gap-1">{decoItems.map((d, i) => <span key={i}>{d.render(24)}</span>)}</div>
+            <div className="absolute top-4 right-4 flex gap-1">{decoItems.map((d, i) => <span key={i} style={{ transform: 'scaleX(-1)' }}>{d.render(24)}</span>)}</div>
+            <div className="absolute bottom-12 left-4 flex gap-1">{decoItems.map((d, i) => <span key={i} style={{ transform: 'scaleY(-1)' }}>{d.render(24)}</span>)}</div>
+            <div className="absolute bottom-12 right-4 flex gap-1">{decoItems.map((d, i) => <span key={i} style={{ transform: 'scale(-1)' }}>{d.render(24)}</span>)}</div>
+          </>
+        ) : null;
+
+      if (quoteLayout === 'left') {
+        return (
+          <div className="relative flex flex-col items-start text-left gap-5 px-10" style={{ width: 480 }}>
+            <DecoCorners />
+            <span className="text-5xl opacity-30">&ldquo;</span>
+            <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 400 }} />
+            {author && <p className="text-sm font-medium opacity-70 mt-2">— {author}</p>}
+            <BrandFooter />
+          </div>
+        );
+      }
+
+      if (quoteLayout === 'big') {
+        return (
+          <div className="relative flex flex-col items-center text-center gap-4 px-8" style={{ width: 480 }}>
+            <DecoCorners />
+            <TextWithBreaks text={text} className="text-3xl font-extrabold leading-snug" style={{ width: 440 }} />
+            {author && <p className="text-base font-medium opacity-70 mt-4">— {author}</p>}
+            <BrandFooter />
+          </div>
+        );
+      }
+
+      if (quoteLayout === 'minimal') {
+        return (
+          <div className="relative flex flex-col items-center text-center gap-4" style={{ width: 420 }}>
+            <DecoCorners />
+            <div className="w-12 h-[2px] opacity-30 bg-current" />
+            <TextWithBreaks text={text} className="text-lg font-light leading-relaxed italic" style={{ width: 380 }} />
+            {author && <p className="text-xs tracking-widest uppercase opacity-50 mt-3">{author}</p>}
+            <div className="w-12 h-[2px] opacity-30 bg-current" />
+            <BrandFooter />
+          </div>
+        );
+      }
+
+      if (quoteLayout === 'card') {
+        return (
+          <div className="relative flex flex-col items-center text-center gap-4" style={{ width: 420 }}>
+            <DecoCorners />
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 flex flex-col gap-4 items-center" style={{ width: 400 }}>
+              <span className="text-4xl opacity-30">&ldquo;</span>
+              <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 340 }} />
+              {author && <p className="text-sm font-medium opacity-70">— {author}</p>}
+            </div>
+            <BrandFooter />
+          </div>
+        );
+      }
+
+      if (quoteLayout === 'split') {
+        return (
+          <div className="relative flex items-center gap-6 px-8" style={{ width: 480 }}>
+            <DecoCorners />
+            <div className="w-[3px] self-stretch opacity-30 bg-current rounded-full flex-shrink-0" />
+            <div className="flex flex-col gap-4">
+              <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 360 }} />
+              {author && <p className="text-sm font-medium opacity-70">— {author}</p>}
+              <BrandFooter />
+            </div>
+          </div>
+        );
+      }
+
+      // Default: center
       return (
-        <div className="flex flex-col items-center text-center gap-6" style={{ width: 420 }}>
+        <div className="relative flex flex-col items-center text-center gap-6" style={{ width: 420 }}>
+          <DecoCorners />
           <span className="text-5xl opacity-30">&ldquo;</span>
-          <TextWithBreaks
-            text={slide.text || 'Tulis kutipan di panel kiri...'}
-            className="text-xl font-semibold leading-relaxed italic"
-            style={{ width: 400 }}
-          />
-          {slide.author && <p className="text-sm font-medium opacity-70">— {slide.author}</p>}
+          <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 400 }} />
+          {author && <p className="text-sm font-medium opacity-70">— {author}</p>}
           <BrandFooter />
         </div>
       );
@@ -790,6 +917,63 @@ export default function ContentGeneratorClient() {
                     />
                   </div>
                 ))}
+
+                {/* Quote Layout picker */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Tata Letak Kutipan</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {QUOTE_LAYOUTS.map((l) => (
+                      <button
+                        key={l.key}
+                        onClick={() => setQuoteLayout(l.key)}
+                        className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg text-xs font-medium transition-all border ${
+                          quoteLayout === l.key
+                            ? 'bg-green-50 text-white border-green-50'
+                            : 'bg-white text-gray-50 border-gray-200 hover:border-green-50'
+                        }`}
+                      >
+                        <span className="text-base">{l.icon}</span>
+                        {l.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quote Decoration picker */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Tambah Dekorasi</label>
+                  <div className="grid grid-cols-4 gap-1.5">
+                    {QUOTE_DECORATIONS.map((d) => (
+                      <button
+                        key={d.id}
+                        onClick={() =>
+                          setQuoteDecorations((prev) =>
+                            prev.includes(d.id)
+                              ? prev.filter((x) => x !== d.id)
+                              : prev.length < 4 ? [...prev, d.id] : prev
+                          )
+                        }
+                        className={`flex flex-col items-center gap-0.5 px-1 py-1.5 rounded-lg text-[10px] font-medium transition-all border ${
+                          quoteDecorations.includes(d.id)
+                            ? 'bg-green-50 text-white border-green-50'
+                            : 'bg-white text-gray-50 border-gray-200 hover:border-green-50'
+                        }`}
+                        title={d.label}
+                      >
+                        <span className="text-sm">{d.label.split(' ')[0]}</span>
+                      </button>
+                    ))}
+                  </div>
+                  {quoteDecorations.length > 0 && (
+                    <button
+                      onClick={() => setQuoteDecorations([])}
+                      className="text-xs text-red-500 hover:underline mt-1"
+                    >
+                      Hapus semua dekorasi
+                    </button>
+                  )}
+                  <p className="text-[10px] text-gray-400 mt-1">Maks 4 dekorasi. Klik untuk toggle.</p>
+                </div>
               </div>
             )}
 
