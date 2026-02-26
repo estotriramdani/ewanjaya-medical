@@ -8,7 +8,7 @@ import {
   Save, Pencil, Type, ImagePlus, GripVertical, Download,
   Heart, Sparkles, Flame, BookOpen, Feather, Coffee,
   Sun, Moon, CloudRain, Leaf, Music, Zap, Award, Quote,
-  User,
+  User, Clock, Lightbulb, BarChart3,
 } from 'lucide-react';
 import {
   EJ_BOOKS_LIST,
@@ -22,7 +22,7 @@ import {
 // ============================================
 // Types
 // ============================================
-type Template = 'book' | 'quote' | 'announcement' | 'testimonial' | 'author-intro' | 'custom';
+type Template = 'book' | 'quote' | 'announcement' | 'testimonial' | 'author-intro' | 'coming-soon' | 'tips' | 'stats' | 'custom';
 type AspectRatio = '1:1' | '4:5';
 type BgTheme = 'green' | 'white' | 'dark' | 'gradient' | 'blue' | 'yellow';
 type QuoteLayout = 'center' | 'left' | 'big' | 'minimal' | 'card' | 'split';
@@ -65,6 +65,9 @@ interface SavedProject {
   selectedTestimonialIndex: number;
   selectedAuthorIndex: number;
   authorIntroCustomBio: string;
+  comingSoon: { bookTitle: string; authorName: string; releaseDate: string; tagline: string };
+  tipsSlides: { number: number; text: string }[];
+  stats: { label: string; value: string }[];
   customSlides: CustomSlide[];
   savedAt: number;
 }
@@ -388,7 +391,7 @@ function DraggableItem({
 // ============================================
 function BrandFooter() {
   return (
-    <div className="mt-auto pt-4 opacity-60 text-xs flex items-center gap-2">
+    <div className="mt-auto pt-4 opacity-75 text-xs flex items-center gap-2">
       <img src="/img/ej-logo.png" alt="EJ Books" className="w-5 h-5" />
       {EJ_BOOKS_INFO.name}
     </div>
@@ -421,6 +424,15 @@ export default function ContentGeneratorClient() {
   // Author intro
   const [selectedAuthorIndex, setSelectedAuthorIndex] = useState(0);
   const [authorIntroCustomBio, setAuthorIntroCustomBio] = useState('');
+
+  // Coming soon
+  const [comingSoon, setComingSoon] = useState({ bookTitle: '', authorName: '', releaseDate: '', tagline: '' });
+
+  // Tips menulis (multi-slide)
+  const [tipsSlides, setTipsSlides] = useState([{ number: 1, text: '' }]);
+
+  // Statistik
+  const [stats, setStats] = useState([{ label: 'Buku Diterbitkan', value: '5' }, { label: 'Penulis Aktif', value: '10+' }, { label: 'Total Halaman', value: '870' }]);
 
   // Custom template
   const [customSlides, setCustomSlides] = useState<CustomSlide[]>([
@@ -480,6 +492,9 @@ export default function ContentGeneratorClient() {
       case 'announcement': return 1;
       case 'testimonial': return 1;
       case 'author-intro': return 1;
+      case 'coming-soon': return 1;
+      case 'tips': return tipsSlides.length;
+      case 'stats': return 1;
       case 'custom': return customSlides.length;
     }
   };
@@ -600,6 +615,9 @@ export default function ContentGeneratorClient() {
       selectedTestimonialIndex,
       selectedAuthorIndex,
       authorIntroCustomBio,
+      comingSoon,
+      tipsSlides,
+      stats,
       customSlides,
       savedAt: Date.now(),
     };
@@ -625,6 +643,9 @@ export default function ContentGeneratorClient() {
     setSelectedTestimonialIndex(project.selectedTestimonialIndex);
     setSelectedAuthorIndex(project.selectedAuthorIndex ?? 0);
     setAuthorIntroCustomBio(project.authorIntroCustomBio ?? '');
+    setComingSoon(project.comingSoon ?? { bookTitle: '', authorName: '', releaseDate: '', tagline: '' });
+    setTipsSlides(project.tipsSlides ?? [{ number: 1, text: '' }]);
+    setStats(project.stats ?? [{ label: 'Buku Diterbitkan', value: '5' }, { label: 'Penulis Aktif', value: '10+' }, { label: 'Total Halaman', value: '870' }]);
     setCustomSlides(project.customSlides || [{ id: uid(), elements: [], bgTheme: 'green' }]);
     setActiveSlide(0);
   };
@@ -642,6 +663,9 @@ export default function ContentGeneratorClient() {
     { key: 'announcement', label: 'Pengumuman', icon: <Megaphone className="w-4 h-4" /> },
     { key: 'testimonial', label: 'Testimoni', icon: <Star className="w-4 h-4" /> },
     { key: 'author-intro', label: 'Perkenalan Penulis', icon: <User className="w-4 h-4" /> },
+    { key: 'coming-soon', label: 'Coming Soon', icon: <Clock className="w-4 h-4" /> },
+    { key: 'tips', label: 'Tips Menulis', icon: <Lightbulb className="w-4 h-4" /> },
+    { key: 'stats', label: 'Statistik', icon: <BarChart3 className="w-4 h-4" /> },
     { key: 'custom', label: 'Custom', icon: <Pencil className="w-4 h-4" /> },
   ];
 
@@ -658,11 +682,11 @@ export default function ContentGeneratorClient() {
           <div className="flex flex-col items-center text-center gap-5" style={{ width: 420 }}>
             <img src={selectedBook.coverImage} alt={selectedBook.title} className="object-cover rounded-xl shadow-2xl" style={{ width: 160, height: 224 }} />
             <div>
-              <h2 className="text-2xl font-bold leading-tight mb-2">{selectedBook.title}</h2>
-              <p className="text-sm opacity-80 mb-1">oleh {selectedBook.author.penName || selectedBook.author.name}</p>
-              <p className="text-lg font-bold mt-3">{formatBookPrice(selectedBook.price)}</p>
+              <h2 className="text-3xl font-bold leading-tight mb-2">{selectedBook.title}</h2>
+              <p className="text-base opacity-90 mb-1">oleh {selectedBook.author.penName || selectedBook.author.name}</p>
+              <p className="text-xl font-bold mt-3">{formatBookPrice(selectedBook.price)}</p>
             </div>
-            <p className="text-sm opacity-70 leading-relaxed">{selectedBook.shortDescription}</p>
+            <p className="text-base opacity-80 leading-relaxed">{selectedBook.shortDescription}</p>
             <BrandFooter />
           </div>
         );
@@ -675,8 +699,8 @@ export default function ContentGeneratorClient() {
             className="text-xl font-semibold leading-relaxed italic"
             style={{ width: 400 }}
           />
-          <p className="text-sm font-medium opacity-70">— {selectedBook.title}</p>
-          <p className="text-xs opacity-50">oleh {selectedBook.author.penName || selectedBook.author.name}</p>
+          <p className="text-base font-medium opacity-80">— {selectedBook.title}</p>
+          <p className="text-sm opacity-70">oleh {selectedBook.author.penName || selectedBook.author.name}</p>
           <BrandFooter />
         </div>
       );
@@ -704,7 +728,7 @@ export default function ContentGeneratorClient() {
             <DecoCorners />
             <span className="text-5xl opacity-30">&ldquo;</span>
             <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 400 }} />
-            {author && <p className="text-sm font-medium opacity-70 mt-2">— {author}</p>}
+            {author && <p className="text-sm font-medium opacity-80 mt-2">— {author}</p>}
             <BrandFooter />
           </div>
         );
@@ -715,7 +739,7 @@ export default function ContentGeneratorClient() {
           <div className="relative flex flex-col items-center text-center gap-4 px-8" style={{ width: 480 }}>
             <DecoCorners />
             <TextWithBreaks text={text} className="text-3xl font-extrabold leading-snug" style={{ width: 440 }} />
-            {author && <p className="text-base font-medium opacity-70 mt-4">— {author}</p>}
+            {author && <p className="text-base font-medium opacity-80 mt-4">— {author}</p>}
             <BrandFooter />
           </div>
         );
@@ -727,7 +751,7 @@ export default function ContentGeneratorClient() {
             <DecoCorners />
             <div className="w-12 h-[2px] opacity-30 bg-current" />
             <TextWithBreaks text={text} className="text-lg font-light leading-relaxed italic" style={{ width: 380 }} />
-            {author && <p className="text-xs tracking-widest uppercase opacity-50 mt-3">{author}</p>}
+            {author && <p className="text-xs tracking-widest uppercase opacity-70 mt-3">{author}</p>}
             <div className="w-12 h-[2px] opacity-30 bg-current" />
             <BrandFooter />
           </div>
@@ -741,7 +765,7 @@ export default function ContentGeneratorClient() {
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 flex flex-col gap-4 items-center" style={{ width: 400 }}>
               <span className="text-4xl opacity-30">&ldquo;</span>
               <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 340 }} />
-              {author && <p className="text-sm font-medium opacity-70">— {author}</p>}
+              {author && <p className="text-sm font-medium opacity-80">— {author}</p>}
             </div>
             <BrandFooter />
           </div>
@@ -752,10 +776,10 @@ export default function ContentGeneratorClient() {
         return (
           <div className="relative flex items-center gap-6 px-8" style={{ width: 480 }}>
             <DecoCorners />
-            <div className="w-[3px] self-stretch opacity-30 bg-current rounded-full flex-shrink-0" />
+            <div className="w-[3px] self-stretch opacity-40 bg-current rounded-full flex-shrink-0" />
             <div className="flex flex-col gap-4">
               <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 360 }} />
-              {author && <p className="text-sm font-medium opacity-70">— {author}</p>}
+              {author && <p className="text-sm font-medium opacity-80">— {author}</p>}
               <BrandFooter />
             </div>
           </div>
@@ -768,7 +792,7 @@ export default function ContentGeneratorClient() {
           <DecoCorners />
           <span className="text-5xl opacity-30">&ldquo;</span>
           <TextWithBreaks text={text} className="text-xl font-semibold leading-relaxed italic" style={{ width: 400 }} />
-          {author && <p className="text-sm font-medium opacity-70">— {author}</p>}
+          {author && <p className="text-sm font-medium opacity-80">— {author}</p>}
           <BrandFooter />
         </div>
       );
@@ -778,13 +802,13 @@ export default function ContentGeneratorClient() {
       return (
         <div className="flex flex-col items-center text-center gap-5" style={{ width: 420 }}>
           <span className="text-4xl">📢</span>
-          <h2 className="text-2xl font-bold leading-tight">{selectedAnnouncement.title}</h2>
+          <h2 className="text-3xl font-bold leading-tight">{selectedAnnouncement.title}</h2>
           <TextWithBreaks
             text={selectedAnnouncement.content}
-            className="text-sm opacity-80 leading-relaxed"
+            className="text-base opacity-90 leading-relaxed"
             style={{ width: 400 }}
           />
-          <p className="text-xs opacity-50 mt-2">{selectedAnnouncement.date}</p>
+          <p className="text-sm opacity-70 mt-2">{selectedAnnouncement.date}</p>
           <BrandFooter />
         </div>
       );
@@ -801,7 +825,7 @@ export default function ContentGeneratorClient() {
           />
           <div className="mt-2">
             <p className="font-bold text-sm">{selectedTestimonial.name}</p>
-            <p className="text-xs opacity-70">{selectedTestimonial.role}</p>
+            <p className="text-xs opacity-80">{selectedTestimonial.role}</p>
           </div>
           <BrandFooter />
         </div>
@@ -821,31 +845,98 @@ export default function ContentGeneratorClient() {
             style={{ width: 120, height: 120 }}
           />
           <div>
-            <h2 className="text-2xl font-bold leading-tight">{author.penName || author.name}</h2>
+            <h2 className="text-3xl font-bold leading-tight">{author.penName || author.name}</h2>
             {author.penName && (
-              <p className="text-xs opacity-60 mt-1">{author.name}</p>
+              <p className="text-sm opacity-75 mt-1">{author.name}</p>
             )}
           </div>
           {displayBio && (
             <TextWithBreaks
               text={displayBio}
-              className="text-sm opacity-80 leading-relaxed"
+              className="text-base opacity-90 leading-relaxed"
               style={{ width: 360 }}
             />
           )}
           {authorBooks.length > 0 && (
             <div className="flex flex-col items-center gap-2 mt-1">
-              <p className="text-xs font-semibold opacity-60 uppercase tracking-wider">Buku diterbitkan</p>
+              <p className="text-sm font-semibold opacity-75 uppercase tracking-wider">Buku diterbitkan</p>
               <div className="flex flex-col gap-1 items-center">
                 {[...authorBooks]
                   .sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
                   .slice(0, 3)
                   .map(book => (
-                    <p key={book.id} className="text-sm font-medium opacity-80">{book.title}</p>
+                    <p key={book.id} className="text-base font-medium opacity-90">{book.title}</p>
                   ))}
               </div>
             </div>
           )}
+          <BrandFooter />
+        </div>
+      );
+    }
+
+    if (template === 'coming-soon') {
+      return (
+        <div className="flex flex-col items-center text-center gap-5" style={{ width: 420 }}>
+          <p className="text-sm font-bold uppercase tracking-[0.3em] opacity-70">Coming Soon</p>
+          <div className="w-16 h-[2px] opacity-30 bg-current" />
+          <h2 className="text-4xl font-extrabold leading-tight">
+            {comingSoon.bookTitle || 'Judul Buku Baru'}
+          </h2>
+          {comingSoon.authorName && (
+            <p className="text-base opacity-80">oleh {comingSoon.authorName}</p>
+          )}
+          {comingSoon.tagline && (
+            <TextWithBreaks
+              text={comingSoon.tagline}
+              className="text-lg italic opacity-90 leading-relaxed"
+              style={{ width: 360 }}
+            />
+          )}
+          {comingSoon.releaseDate && (
+            <div className="mt-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-sm">
+              <p className="text-base font-semibold">
+                <Clock className="w-4 h-4 inline-block mr-1.5 -mt-0.5" />
+                {comingSoon.releaseDate}
+              </p>
+            </div>
+          )}
+          <BrandFooter />
+        </div>
+      );
+    }
+
+    if (template === 'tips') {
+      const slide = tipsSlides[activeSlide] || tipsSlides[0];
+      return (
+        <div className="flex flex-col items-center text-center gap-5" style={{ width: 420 }}>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] opacity-70">Tips Menulis</p>
+          <div className="flex items-center justify-center">
+            <span className="text-7xl font-black opacity-15">{String(slide.number).padStart(2, '0')}</span>
+          </div>
+          <TextWithBreaks
+            text={slide.text || 'Tulis tips di panel kiri...'}
+            className="text-xl font-semibold leading-relaxed"
+            style={{ width: 380 }}
+          />
+          <BrandFooter />
+        </div>
+      );
+    }
+
+    if (template === 'stats') {
+      return (
+        <div className="flex flex-col items-center text-center gap-6" style={{ width: 420 }}>
+          <p className="text-sm font-bold uppercase tracking-[0.3em] opacity-70">Pencapaian Kami</p>
+          <div className="w-16 h-[2px] opacity-30 bg-current" />
+          <div className="flex flex-col gap-5 w-full">
+            {stats.map((s, i) => (
+              <div key={i} className="flex flex-col items-center gap-1">
+                <span className="text-5xl font-black">{s.value}</span>
+                <span className="text-base opacity-75 font-medium">{s.label}</span>
+              </div>
+            ))}
+          </div>
           <BrandFooter />
         </div>
       );
@@ -1117,6 +1208,145 @@ export default function ContentGeneratorClient() {
                     </div>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* ---- COMING SOON controls ---- */}
+            {template === 'coming-soon' && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Judul Buku</label>
+                  <input
+                    value={comingSoon.bookTitle}
+                    onChange={(e) => setComingSoon(s => ({ ...s, bookTitle: e.target.value }))}
+                    placeholder="Judul buku yang akan rilis..."
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-90"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Nama Penulis</label>
+                  <input
+                    value={comingSoon.authorName}
+                    onChange={(e) => setComingSoon(s => ({ ...s, authorName: e.target.value }))}
+                    placeholder="Nama penulis"
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-90"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Tanggal Rilis</label>
+                  <input
+                    value={comingSoon.releaseDate}
+                    onChange={(e) => setComingSoon(s => ({ ...s, releaseDate: e.target.value }))}
+                    placeholder="Contoh: Maret 2026"
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-90"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Tagline</label>
+                  <textarea
+                    value={comingSoon.tagline}
+                    onChange={(e) => setComingSoon(s => ({ ...s, tagline: e.target.value }))}
+                    placeholder="Tagline atau deskripsi singkat..."
+                    rows={3}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-90 resize-none"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* ---- TIPS controls (multi-slide) ---- */}
+            {template === 'tips' && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-semibold text-gray-90">Slide Tips</label>
+                  <button
+                    onClick={() => setTipsSlides(s => [...s, { number: s.length + 1, text: '' }])}
+                    className="text-xs text-green-50 font-semibold flex items-center gap-1 hover:underline"
+                  >
+                    <Plus className="w-3 h-3" /> Tambah Slide
+                  </button>
+                </div>
+                {tipsSlides.map((slide, i) => (
+                  <div key={i} className={`p-3 rounded-xl border space-y-2 ${activeSlide === i ? 'border-green-50 bg-green-50/5' : 'border-gray-200'}`}>
+                    <div className="flex items-center justify-between">
+                      <button onClick={() => setActiveSlide(i)} className="text-xs font-semibold text-gray-90">
+                        Tips #{slide.number}
+                      </button>
+                      {tipsSlides.length > 1 && (
+                        <button
+                          onClick={() => {
+                            setTipsSlides(s => s.filter((_, idx) => idx !== i));
+                            setActiveSlide(a => Math.min(a, tipsSlides.length - 2));
+                          }}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label className="text-xs text-gray-50">No.</label>
+                      <input
+                        type="number"
+                        value={slide.number}
+                        onChange={(e) => setTipsSlides(s => s.map((sl, idx) => idx === i ? { ...sl, number: Number(e.target.value) } : sl))}
+                        className="w-16 rounded-lg border border-gray-200 px-2 py-1.5 text-sm text-gray-90"
+                        min={1}
+                      />
+                    </div>
+                    <textarea
+                      value={slide.text}
+                      onChange={(e) => setTipsSlides(s => s.map((sl, idx) => idx === i ? { ...sl, text: e.target.value } : sl))}
+                      placeholder="Isi tips..."
+                      rows={3}
+                      className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-90 resize-none"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* ---- STATS controls ---- */}
+            {template === 'stats' && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-semibold text-gray-90">Data Statistik</label>
+                  {stats.length < 5 && (
+                    <button
+                      onClick={() => setStats(s => [...s, { label: '', value: '' }])}
+                      className="text-xs text-green-50 font-semibold flex items-center gap-1 hover:underline"
+                    >
+                      <Plus className="w-3 h-3" /> Tambah
+                    </button>
+                  )}
+                </div>
+                {stats.map((s, i) => (
+                  <div key={i} className="p-3 rounded-xl border border-gray-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold text-gray-90">Item {i + 1}</span>
+                      {stats.length > 1 && (
+                        <button
+                          onClick={() => setStats(st => st.filter((_, idx) => idx !== i))}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                    <input
+                      value={s.value}
+                      onChange={(e) => setStats(st => st.map((item, idx) => idx === i ? { ...item, value: e.target.value } : item))}
+                      placeholder="Angka (misal: 5, 200+, 1000)"
+                      className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-90"
+                    />
+                    <input
+                      value={s.label}
+                      onChange={(e) => setStats(st => st.map((item, idx) => idx === i ? { ...item, label: e.target.value } : item))}
+                      placeholder="Label (misal: Buku Diterbitkan)"
+                      className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-90"
+                    />
+                  </div>
+                ))}
               </div>
             )}
 
