@@ -8,9 +8,11 @@ import {
   Save, Pencil, Type, ImagePlus, GripVertical, Download,
   Heart, Sparkles, Flame, BookOpen, Feather, Coffee,
   Sun, Moon, CloudRain, Leaf, Music, Zap, Award, Quote,
+  User,
 } from 'lucide-react';
 import {
   EJ_BOOKS_LIST,
+  EJ_BOOKS_AUTHORS,
   EJ_BOOKS_TESTIMONIALS,
   EJ_BOOKS_ANNOUNCEMENTS,
   EJ_BOOKS_INFO,
@@ -20,9 +22,9 @@ import {
 // ============================================
 // Types
 // ============================================
-type Template = 'book' | 'quote' | 'announcement' | 'testimonial' | 'custom';
+type Template = 'book' | 'quote' | 'announcement' | 'testimonial' | 'author-intro' | 'custom';
 type AspectRatio = '1:1' | '4:5';
-type BgTheme = 'green' | 'white' | 'dark' | 'gradient';
+type BgTheme = 'green' | 'white' | 'dark' | 'gradient' | 'blue' | 'yellow';
 type QuoteLayout = 'center' | 'left' | 'big' | 'minimal' | 'card' | 'split';
 
 interface QuoteDecoration {
@@ -61,6 +63,8 @@ interface SavedProject {
   quoteDecorations: string[];
   selectedAnnouncementIndex: number;
   selectedTestimonialIndex: number;
+  selectedAuthorIndex: number;
+  authorIntroCustomBio: string;
   customSlides: CustomSlide[];
   savedAt: number;
 }
@@ -73,6 +77,8 @@ const BG_THEMES: Record<BgTheme, string> = {
   white: 'bg-white text-gray-90',
   dark: 'bg-[#141414] text-white',
   gradient: 'bg-gradient-to-br from-[#30AF5B] to-[#021639] text-white',
+  blue: 'bg-[#021639] text-white',
+  yellow: 'bg-[#FEC601] text-[#141414]',
 };
 
 const BG_THEME_LABELS: Record<BgTheme, string> = {
@@ -80,6 +86,8 @@ const BG_THEME_LABELS: Record<BgTheme, string> = {
   white: 'Putih',
   dark: 'Gelap',
   gradient: 'Gradient',
+  blue: 'Biru',
+  yellow: 'Kuning',
 };
 
 const SLIDE_SIZES: Record<AspectRatio, { width: number; height: number }> = {
@@ -410,6 +418,10 @@ export default function ContentGeneratorClient() {
   const [selectedAnnouncementIndex, setSelectedAnnouncementIndex] = useState(0);
   const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0);
 
+  // Author intro
+  const [selectedAuthorIndex, setSelectedAuthorIndex] = useState(0);
+  const [authorIntroCustomBio, setAuthorIntroCustomBio] = useState('');
+
   // Custom template
   const [customSlides, setCustomSlides] = useState<CustomSlide[]>([
     { id: uid(), elements: [], bgTheme: 'green' },
@@ -467,6 +479,7 @@ export default function ContentGeneratorClient() {
       case 'quote': return quoteSlides.length;
       case 'announcement': return 1;
       case 'testimonial': return 1;
+      case 'author-intro': return 1;
       case 'custom': return customSlides.length;
     }
   };
@@ -585,6 +598,8 @@ export default function ContentGeneratorClient() {
       quoteDecorations,
       selectedAnnouncementIndex,
       selectedTestimonialIndex,
+      selectedAuthorIndex,
+      authorIntroCustomBio,
       customSlides,
       savedAt: Date.now(),
     };
@@ -608,6 +623,8 @@ export default function ContentGeneratorClient() {
     setQuoteDecorations(project.quoteDecorations || []);
     setSelectedAnnouncementIndex(project.selectedAnnouncementIndex);
     setSelectedTestimonialIndex(project.selectedTestimonialIndex);
+    setSelectedAuthorIndex(project.selectedAuthorIndex ?? 0);
+    setAuthorIntroCustomBio(project.authorIntroCustomBio ?? '');
     setCustomSlides(project.customSlides || [{ id: uid(), elements: [], bgTheme: 'green' }]);
     setActiveSlide(0);
   };
@@ -624,6 +641,7 @@ export default function ContentGeneratorClient() {
     { key: 'quote', label: 'Kutipan', icon: <MessageSquareQuote className="w-4 h-4" /> },
     { key: 'announcement', label: 'Pengumuman', icon: <Megaphone className="w-4 h-4" /> },
     { key: 'testimonial', label: 'Testimoni', icon: <Star className="w-4 h-4" /> },
+    { key: 'author-intro', label: 'Perkenalan Penulis', icon: <User className="w-4 h-4" /> },
     { key: 'custom', label: 'Custom', icon: <Pencil className="w-4 h-4" /> },
   ];
 
@@ -785,6 +803,49 @@ export default function ContentGeneratorClient() {
             <p className="font-bold text-sm">{selectedTestimonial.name}</p>
             <p className="text-xs opacity-70">{selectedTestimonial.role}</p>
           </div>
+          <BrandFooter />
+        </div>
+      );
+    }
+
+    if (template === 'author-intro') {
+      const author = EJ_BOOKS_AUTHORS[selectedAuthorIndex] || EJ_BOOKS_AUTHORS[0];
+      const displayBio = authorIntroCustomBio || author.bio || '';
+      const authorBooks = EJ_BOOKS_LIST.filter(b => b.author.id === author.id);
+      return (
+        <div className="flex flex-col items-center text-center gap-5" style={{ width: 420 }}>
+          <img
+            src={author.profileImage}
+            alt={author.name}
+            className="rounded-full object-cover border-4 border-white/30 shadow-lg"
+            style={{ width: 120, height: 120 }}
+          />
+          <div>
+            <h2 className="text-2xl font-bold leading-tight">{author.penName || author.name}</h2>
+            {author.penName && (
+              <p className="text-xs opacity-60 mt-1">{author.name}</p>
+            )}
+          </div>
+          {displayBio && (
+            <TextWithBreaks
+              text={displayBio}
+              className="text-sm opacity-80 leading-relaxed"
+              style={{ width: 360 }}
+            />
+          )}
+          {authorBooks.length > 0 && (
+            <div className="flex flex-col items-center gap-2 mt-1">
+              <p className="text-xs font-semibold opacity-60 uppercase tracking-wider">Buku diterbitkan</p>
+              <div className="flex flex-col gap-1 items-center">
+                {[...authorBooks]
+                  .sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
+                  .slice(0, 3)
+                  .map(book => (
+                    <p key={book.id} className="text-sm font-medium opacity-80">{book.title}</p>
+                  ))}
+              </div>
+            </div>
+          )}
           <BrandFooter />
         </div>
       );
@@ -1009,6 +1070,56 @@ export default function ContentGeneratorClient() {
               </div>
             )}
 
+            {/* ---- AUTHOR INTRO controls ---- */}
+            {template === 'author-intro' && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Pilih Penulis</label>
+                  <select
+                    value={selectedAuthorIndex}
+                    onChange={(e) => {
+                      setSelectedAuthorIndex(Number(e.target.value));
+                      setAuthorIntroCustomBio('');
+                    }}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-90"
+                  >
+                    {EJ_BOOKS_AUTHORS.map((a, i) => (
+                      <option key={a.id} value={i}>{a.penName || a.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-90 mb-2">Bio (opsional, override)</label>
+                  <textarea
+                    value={authorIntroCustomBio}
+                    onChange={(e) => setAuthorIntroCustomBio(e.target.value)}
+                    placeholder={EJ_BOOKS_AUTHORS[selectedAuthorIndex]?.bio || 'Tulis bio penulis...'}
+                    rows={4}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-90 resize-none"
+                  />
+                </div>
+                <div className="p-3 rounded-xl bg-gray-50/50 border border-gray-100">
+                  <p className="text-xs font-semibold text-gray-90 mb-2">Preview info</p>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={EJ_BOOKS_AUTHORS[selectedAuthorIndex]?.profileImage}
+                      alt=""
+                      className="rounded-full object-cover"
+                      style={{ width: 40, height: 40 }}
+                    />
+                    <div>
+                      <p className="text-sm font-bold text-gray-90">
+                        {EJ_BOOKS_AUTHORS[selectedAuthorIndex]?.penName || EJ_BOOKS_AUTHORS[selectedAuthorIndex]?.name}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {EJ_BOOKS_LIST.filter(b => b.author.id === EJ_BOOKS_AUTHORS[selectedAuthorIndex]?.id).length} buku diterbitkan
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* ---- CUSTOM controls ---- */}
             {template === 'custom' && (
               <div className="space-y-3">
@@ -1188,6 +1299,8 @@ export default function ContentGeneratorClient() {
                         key === 'green' ? 'bg-[#30AF5B]' :
                         key === 'white' ? 'bg-white border border-gray-200' :
                         key === 'dark' ? 'bg-[#141414]' :
+                        key === 'blue' ? 'bg-[#021639]' :
+                        key === 'yellow' ? 'bg-[#FEC601]' :
                         'bg-gradient-to-br from-[#30AF5B] to-[#021639]'
                       }`} />
                       {BG_THEME_LABELS[key]}

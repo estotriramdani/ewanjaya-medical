@@ -49,6 +49,7 @@ export interface EJAuthor {
   email: string;
   bio?: string;
   avatar?: string;
+  profileImage: string;
 }
 
 export const EJ_BOOKS_AUTHORS: EJAuthor[] = [
@@ -58,6 +59,7 @@ export const EJ_BOOKS_AUTHORS: EJAuthor[] = [
     penName: 'A. Fauzi',
     email: 'ahmadfauzi@email.com',
     bio: 'Penulis dan pelatih menulis berpengalaman yang telah membantu ratusan orang memulai perjalanan menulis mereka.',
+    profileImage: '/img/authors/author-001.svg',
   },
   {
     id: 'author-002',
@@ -65,12 +67,14 @@ export const EJ_BOOKS_AUTHORS: EJAuthor[] = [
     penName: 'S. Nur',
     email: 'sitinurhaliza@email.com',
     bio: 'Penulis cerpen dan budayawan yang aktif mendokumentasikan kehidupan masyarakat di pelosok Indonesia.',
+    profileImage: '/img/authors/author-002.svg',
   },
   {
     id: 'author-003',
     name: 'Rendi Pratama',
     email: 'rendipratama@email.com',
     bio: 'Praktisi bisnis digital dan content creator yang fokus membagikan ilmu kewirausahaan untuk generasi muda.',
+    profileImage: '/img/authors/author-003.svg',
   },
   {
     id: 'author-004',
@@ -78,12 +82,14 @@ export const EJ_BOOKS_AUTHORS: EJAuthor[] = [
     penName: 'Dewi A.',
     email: 'dewianggraeni@email.com',
     bio: 'Penyair dan sastrawan yang dikenal melalui karya-karya puisinya yang menyentuh hati.',
+    profileImage: '/img/authors/author-004.svg',
   },
   {
     id: 'author-005',
     name: 'Nama Penulis 5',
     penName: 'PenName 5',
     email: 'namapenulis5@email.com',
+    profileImage: '/img/authors/author-005.svg',
   },
 ];
 
