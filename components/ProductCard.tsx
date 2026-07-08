@@ -38,13 +38,11 @@ const ProductCard = ({ product, index }: { product: Product; index?: number }) =
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="mb-2">{product.name}</DialogTitle>
-              <DialogDescription>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: product.description.replace(/\n/g, '<br />'),
-                  }}
-                ></div>
-              </DialogDescription>
+              <DialogDescription
+                dangerouslySetInnerHTML={{
+                  __html: product.description.replace(/\n/g, '<br />'),
+                }}
+              />
             </DialogHeader>
           </DialogContent>
         </Dialog>

@@ -21,7 +21,7 @@ interface MedicalData {
 
 const defaultSettings: MedicalSettings = {
   whatsapp_contact: WHATSAPP_CONTACT,
-  tender_count: String(TENDER_COUNT),
+  tender_count: TENDER_COUNT,
   company_name: 'PT. Ewan Jaya Kastara',
   company_address: 'Desa Lebakwangi, Arjasari, Kabupaten Bandung, Jawa Barat',
   admin_phone: '0857-0332-9747',

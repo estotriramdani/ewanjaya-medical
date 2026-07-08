@@ -97,6 +97,6 @@ export const SOCIALS = {
   links: ['/facebook.svg', '/instagram.svg', '/twitter.svg', '/youtube.svg', '/wordpress.svg'],
 };
 
-export const TENDER_COUNT = 20;
+export const TENDER_COUNT = '20+';
 
 export const WHATSAPP_CONTACT = '6285703329747';

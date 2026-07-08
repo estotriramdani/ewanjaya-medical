@@ -2,15 +2,11 @@
 
 import React, { useState } from 'react';
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+  VideoModal,
+  VideoModalContent,
+  VideoModalTitle,
+  VideoModalTrigger,
+} from '@/components/VideoModal';
 import Image from 'next/image';
 import { useMedical } from '@/lib/MedicalProvider';
 
@@ -41,8 +37,8 @@ const VideoProfilePopup = ({ className = '' }: VideoProfilePopupProps) => {
   if (!videoId) return null;
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <VideoModal>
+      <VideoModalTrigger asChild>
         <button
           className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl shadow-xl ${className}`}
         >
@@ -72,27 +68,22 @@ const VideoProfilePopup = ({ className = '' }: VideoProfilePopupProps) => {
             <p className="text-base font-bold text-white">PT Ewan Jaya Kastara</p>
           </div>
         </button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="sr-only">Video Profile</AlertDialogTitle>
-          <AlertDialogDescription>
-            <iframe
-              className="w-full aspect-video"
-              src={videoUrl}
-              title="Profile Ewan Jaya Kastara"
-              frameBorder={0}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Tutup</AlertDialogCancel>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+      </VideoModalTrigger>
+      <VideoModalContent>
+        <VideoModalTitle>Video Profile PT Ewan Jaya Kastara</VideoModalTitle>
+        <div className="w-full aspect-video">
+          <iframe
+            className="w-full h-full rounded-lg"
+            src={videoUrl}
+            title="Profile Ewan Jaya Kastara"
+            frameBorder={0}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </VideoModalContent>
+    </VideoModal>
   );
 };
 
